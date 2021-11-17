@@ -1,0 +1,37 @@
+{
+    "version": "2.0.0",
+    "tasks": [
+        {
+            "type": "shell",
+            "label": "C/C++: Сборка проекта",
+            "command": "",
+            "args": [
+                "mingw32-make.exe",
+                "--directory=${workspaceFolder}"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Компилятор: \"g++.exe\""
+        },
+        {
+            "type": "shell",
+            "label": "C/C++: Clean",
+            "command": "",
+            "args": [
+                "mingw32-make.exe",
+                "clean",
+                "--directory=${workspaceFolder}"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build",
+            "detail": "Очистка выходных файлов"
+        }
+    ]
+}
