@@ -6,8 +6,10 @@
             "label": "C/C++: Сборка проекта",
             "command": "",
             "args": [
-                "mingw32-make.exe",
-                "--directory=${workspaceFolder}"
+                "cmake",
+                "--build",
+                "./build",
+                "-j4"
             ],
             "problemMatcher": [
                 "$gcc"
@@ -20,12 +22,53 @@
         },
         {
             "type": "shell",
+            "label": "Генерация Makefile Debug",
+            "command": "",
+            "args": [
+                "cmake",
+                ".",
+                "-G",
+                "MinGW Makefiles",
+                "-B",
+                "build",
+                "-D",
+                "CMAKE_BUILD_TYPE=DEBUG"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "detail": "Компилятор: \"g++.exe\""
+        },
+        {
+            "type": "shell",
+            "label": "Генерация Makefile Release",
+            "command": "",
+            "args": [
+                "cmake",
+                ".",
+                "-G",
+                "MinGW Makefiles",
+                "-B",
+                "build",
+                "-D",
+                "CMAKE_BUILD_TYPE=RELEASE"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "detail": "Компилятор: \"g++.exe\""
+        },
+        {
+            "type": "shell",
             "label": "C/C++: Clean",
             "command": "",
             "args": [
-                "mingw32-make.exe",
-                "clean",
-                "--directory=${workspaceFolder}"
+                "cmake",
+                "--build",
+                "./build",
+                "--target",
+                "clean"
+
             ],
             "problemMatcher": [
                 "$gcc"

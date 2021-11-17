@@ -8,7 +8,7 @@
             "name": "g++.exe - Сборка и отладка активного файла",
             "type": "cppdbg",
             "request": "launch",
-            "program": "${workspaceFolder}\\Bin\\MakeTemplate.exe",
+            "program": "${workspaceFolder}/build/Template.exe",
             "args": [],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
