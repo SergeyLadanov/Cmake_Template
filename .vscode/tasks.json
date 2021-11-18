@@ -22,13 +22,11 @@
         },
         {
             "type": "shell",
-            "label": "Генерация Makefile Debug",
+            "label": "Конфигурация Debug",
             "command": "",
             "args": [
                 "cmake",
                 ".",
-                "-G",
-                "MinGW Makefiles",
                 "-B",
                 "build",
                 "-D",
@@ -41,13 +39,11 @@
         },
         {
             "type": "shell",
-            "label": "Генерация Makefile Release",
+            "label": "Конфигурация Release",
             "command": "",
             "args": [
                 "cmake",
                 ".",
-                "-G",
-                "MinGW Makefiles",
                 "-B",
                 "build",
                 "-D",
