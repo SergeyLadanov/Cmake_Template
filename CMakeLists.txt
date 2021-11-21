@@ -40,4 +40,27 @@ add_compile_options(
     -Os>>
 )
 
+
+# # Пример подключения библиотек
+# # Для Windows
+# if (WIN32)
+#     # Подключение библиотек
+#     target_link_libraries(
+#         ${EXECUTABLE}  
+#         PUBLIC
+#         ws2_32
+#         wsock32
+#         pthread
+#     )
+# endif (WIN32)
+
+# # Для Linux
+# if (UNIX)
+#     target_link_libraries(
+#         ${EXECUTABLE}  
+#         PUBLIC
+#         pthread
+#     )
+# endif (WIN32)
+
                     
