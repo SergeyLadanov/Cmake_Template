@@ -52,7 +52,7 @@ add_compile_options(
 #         wsock32
 #         pthread
 #     )
-# endif (WIN32)
+# endif ()
 
 # # Для Linux
 # if (UNIX)
@@ -61,6 +61,6 @@ add_compile_options(
 #         PUBLIC
 #         pthread
 #     )
-# endif (WIN32)
+# endif ()
 
                     
