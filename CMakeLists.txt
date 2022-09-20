@@ -3,10 +3,13 @@ cmake_minimum_required(VERSION 3.5)
 # Название проекта
 project(Template)
 
+# Переменная с именем исполняемого файла
+set(EXECUTABLE ${PROJECT_NAME})
+
 # Язык C и C++
 enable_language(CXX C)
 
-
+# Файлы с исходым кодом
 FILE(
     GLOB 
     Sources 
@@ -37,14 +40,8 @@ set(COMPONENTS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Components)
 
 SUBDIRLIST(COMPONENT_LIST ${COMPONENTS_DIRECTORY})
 
-# set(COMPONENT_LIST "")
-
 message("Components is \"${COMPONENT_LIST}\"")
 
-# set(COMPONENT_LIST
-#     "Submodule"
-#     "Submodule2"
-# )
 
 function(depends_on name)
     include_directories(${COMPONENTS_DIRECTORY}/${name}/Inc)
@@ -77,7 +74,7 @@ endfunction()
 
 # Добавление файлов исъодного кода
 add_executable(
-    ${PROJECT_NAME}
+    ${EXECUTABLE}
     ${Sources}
 )
 
@@ -102,26 +99,18 @@ add_compile_options(
 )
 
 
-# # Пример подключения библиотек
-# # Для Windows
-# if (WIN32)
-#     # Подключение библиотек
-#     target_link_libraries(
-#         ${EXECUTABLE}  
-#         PUBLIC
-#         ws2_32
-#         wsock32
-#         pthread
-#     )
-# endif ()
+# Пример подключения библиотек
+# Для Windows
+if (WIN32)
+    # Подключение библиотек
+    target_link_libraries(${PROJECT_NAME} ws2_32)
+    target_link_libraries(${PROJECT_NAME} wsock32)
+    target_link_libraries(${PROJECT_NAME} pthread)
+endif ()
 
-# # Для Linux
-# if (UNIX)
-#     target_link_libraries(
-#         ${EXECUTABLE}  
-#         PUBLIC
-#         pthread
-#     )
-# endif ()
+# Для Linux
+if (UNIX)
+    target_link_libraries(${PROJECT_NAME} pthread)
+endif ()
 
                     
