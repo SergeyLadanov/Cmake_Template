@@ -20,4 +20,5 @@ include_directories(
 # Creating static library
 add_library(${COMPONENT_NAME} STATIC ${SOURCE_LIB})
 
+# Set dependence
 Depends_On("C_Code_Folder")

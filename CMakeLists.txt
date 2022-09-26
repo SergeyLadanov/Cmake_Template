@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.5)
+cmake_minimum_required(VERSION 3.21)
 
 # Название проекта
 project(Template)
@@ -17,53 +17,54 @@ FILE(
     "Core/Src/*.c"
     )
 
+# Директории с заголовочными файлами
 set(INCLUDE_LIST
     Core/Inc
 )
 
-
-
+# Получение списка папок в заданном каталоге
 macro(__Get_DirectorytList result curdir)
-  file(GLOB children RELATIVE ${curdir} ${curdir}/*)
-  set(dirlist "")
-  foreach(child ${children})
-    if(IS_DIRECTORY ${curdir}/${child})
-      list(APPEND dirlist ${child})
-    endif()
-  endforeach()
-  set(${result} ${dirlist})
+    file(GLOB children RELATIVE ${curdir} ${curdir}/*)
+    set(dirlist "")
+    foreach(child ${children})
+        if(IS_DIRECTORY ${curdir}/${child})
+            list(APPEND dirlist ${child})
+        endif()
+    endforeach()
+    set(${result} ${dirlist})
 endmacro()
 
-
+# Получение списка каталогов с заголовочными файлами в заданной директории
 macro(__Get_IncludeDirectories result curdir)
-  file(GLOB_RECURSE children ${curdir}/*.h ${curdir}/*.hpp)
-  message("Adding include directories for \"${PROJECT_NAME}\"...")
-  set(dirlist "")
-  set(curItem "")
-  foreach(child ${children})
+    file(GLOB_RECURSE children ${curdir}/*.h ${curdir}/*.hpp)
+    message("Adding include directories for \"${PROJECT_NAME}\"...")
+    set(dirlist "")
+    set(curItem "")
+    foreach(child ${children})
 
-    # Get current path
-    set(path ${child})
-    cmake_path(GET path PARENT_PATH newResult)
+        # Get current path
+        set(path ${child})
+        cmake_path(GET path PARENT_PATH newResult)
 
-    if (NOT curItem STREQUAL newResult)
-        message("Add \"${newResult}\" to icnlude directory list")
-        list(APPEND dirlist ${newResult})
-        set(curItem ${newResult})
-    endif()
-    
-  endforeach()
-  set(${result} ${dirlist})
+        if (NOT curItem STREQUAL newResult)
+            message("Add \"${newResult}\" to icnlude directory list")
+            list(APPEND dirlist ${newResult})
+            set(curItem ${newResult})
+        endif()
+
+    endforeach()
+    set(${result} ${dirlist})
 endmacro()
 
-
+# Установка папки с компонентами проекта
 set(COMPONENTS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Components)
 
+# Получение списка компонентов проекта
 __Get_DirectorytList(COMPONENT_LIST ${COMPONENTS_DIRECTORY})
 
 message("Project components: \"${COMPONENT_LIST}\"")
 
-
+# Указать имя зависимости для компонента
 function(Depends_On name)
     message("Add dependency \"${name}\" for \"${PROJECT_NAME}\"")
     set(dirs "")
@@ -72,7 +73,7 @@ function(Depends_On name)
     target_link_libraries(${PROJECT_NAME} ${name})
 endfunction()
 
-
+# Указать, что данный компонент зависит от всех остальных
 function(Depends_All)
     if (COMPONENT_LIST)
         foreach(item ${COMPONENT_LIST})
@@ -81,7 +82,7 @@ function(Depends_All)
     endif()
 endfunction()
 
-
+# Зарегистрировать компонент
 function(__Register_Component name)
     add_subdirectory(Components/${name})
     get_property(inc_dirs DIRECTORY ${COMPONENTS_DIRECTORY}/${name} PROPERTY INCLUDE_DIRECTORIES)
@@ -89,7 +90,7 @@ function(__Register_Component name)
     target_link_libraries(${PROJECT_NAME} ${name})
 endfunction()
 
-
+# Добавить компоненты в проект
 function(__Add_Components components_list_in)
     set( _components_list ${components_list_in} ${ARGN} )
     foreach(item ${_components_list})
@@ -97,7 +98,7 @@ function(__Add_Components components_list_in)
     endforeach()
 endfunction()
 
-# Добавление файлов исъодного кода
+# Добавление файлов исходного кода
 add_executable(
     ${EXECUTABLE}
     ${Sources}
@@ -108,6 +109,7 @@ target_include_directories(${PROJECT_NAME} PRIVATE
     ${INCLUDE_LIST}
 )
 
+# Если компоненты присутствуют, то нужно добавить их в проект
 if (COMPONENT_LIST)
     __Add_Components(${COMPONENT_LIST})
 endif()
@@ -127,7 +129,6 @@ add_compile_options(
     $<$<CONFIG:Release>:
     -Os>>
 )
-
 
 # Пример подключения библиотек
 # Для Windows

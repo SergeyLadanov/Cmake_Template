@@ -10,6 +10,7 @@ extern "C"
 #include <stdio.h>
 
 void Hello_From_C(void);
+void Dependency_Demonstration(void);
 
 #ifdef __cplusplus
 }
