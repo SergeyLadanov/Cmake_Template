@@ -18,7 +18,8 @@ FILE(
     )
 
 # Директории с заголовочными файлами
-set(INCLUDE_LIST
+set(
+    Includes
     Core/Inc
 )
 
@@ -41,17 +42,14 @@ macro(__Get_IncludeDirectories result curdir)
     set(dirlist "")
     set(curItem "")
     foreach(child ${children})
-
         # Get current path
         set(path ${child})
         cmake_path(GET path PARENT_PATH newResult)
-
         if (NOT curItem STREQUAL newResult)
             message("Add \"${newResult}\" to icnlude directory list")
             list(APPEND dirlist ${newResult})
             set(curItem ${newResult})
         endif()
-
     endforeach()
     set(${result} ${dirlist})
 endmacro()
@@ -106,7 +104,7 @@ add_executable(
 
 # Директории с *.h файлами
 target_include_directories(${PROJECT_NAME} PRIVATE
-    ${INCLUDE_LIST}
+    ${Includes}
 )
 
 # Если компоненты присутствуют, то нужно добавить их в проект
