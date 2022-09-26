@@ -14,15 +14,15 @@ jobs:
     build:
         name: Build for ${{ matrix.os }}
         runs-on: ${{ matrix.os }}
-        strategy:
-            matrix:
-                include:
-                    - os: ubuntu-latest
-                      artifact_name: Template
-                      asset_name: Template_Linux_amd64_$tag
-                    - os: windows-latest
-                      artifact_name: Template.exe
-                      asset_name: Template_amd64_$tag.exe
+        #strategy:
+            #matrix:
+                #include:
+                    #- os: ubuntu-latest
+                    #  artifact_name: Template
+                    #  asset_name: Template_Linux_amd64_$tag
+                    #- os: windows-latest
+                    #  artifact_name: Template.exe
+                    #  asset_name: Template_amd64_$tag.exe
 
         steps:
             - uses: actions/checkout@v2
