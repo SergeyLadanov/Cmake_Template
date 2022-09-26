@@ -37,3 +37,20 @@ jobs:
               
             - name: build
               run: cmake --build ./build
+              
+            - name: Archive production artifacts Windows
+              if: matrix.os == 'windows-latest'
+              uses: actions/upload-artifact@v3
+              with:
+                name: Build_Output
+                path: |
+                  build/Template.exe
+            
+            - name: Archive production artifacts Linux
+              if: matrix.os == 'ubuntu-latest'
+              uses: actions/upload-artifact@v3
+              with:
+                name: Build_Output
+                path: |
+                  build/Template
+            
