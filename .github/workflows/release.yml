@@ -1,0 +1,38 @@
+name: Release project
+
+on:
+  push:
+    tags:
+    - '*'
+      
+jobs:      
+  build:
+    name: Building project
+    uses: ./.github/workflows/build.yml
+  upload:
+    name: Uploading files
+    needs: build
+    runs-on: ubuntu-latest
+    steps:
+      - name: Download build artifatcs
+        uses: actions/download-artifact@v3
+        with:
+          name: Build_Output
+      - name: List of files
+        run: ls
+        
+      - name: Upload Windows executable file to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: Template.exe
+          asset_name: Template_amd64_Windows_$tag.exe
+          tag: ${{ github.ref }}
+          
+      - name: Upload Linux executable file to release
+        uses: svenstaro/upload-release-action@v2
+        with:
+          repo_token: ${{ secrets.GITHUB_TOKEN }}
+          file: Template
+          asset_name: Template_amd64_Linux_$tag
+          tag: ${{ github.ref }}
