@@ -1,0 +1,39 @@
+name: Cmake Build
+
+on:
+  push:
+    branches: '*'
+  pull_request:
+    branches: '*'
+
+env:
+  # Customize the CMake build type here (Release, Debug, RelWithDebInfo, etc.)
+  BUILD_TYPE: Release
+
+jobs:
+    build:
+        name: Build for ${{ matrix.os }}
+        runs-on: ${{ matrix.os }}
+        strategy:
+            matrix:
+                include:
+                    - os: ubuntu-latest
+                      artifact_name: MinewParser
+                      asset_name: Template_Linux_amd64_$tag
+                    - os: windows-latest
+                      artifact_name: MinewParser.exe
+                      asset_name: Template_amd64_$tag.exe
+
+        steps:
+            - uses: actions/checkout@v2
+
+            - name: Build for Linux
+              if: matrix.os == 'ubuntu-latest'
+              run: cmake . -G "Unix Makefiles" -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+
+            - name: Build for Windows
+              if: matrix.os == 'windows-latest'
+              run: cmake . -G "MinGW Makefiles" -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+              
+            - name: build
+              run: cmake --build ./build
