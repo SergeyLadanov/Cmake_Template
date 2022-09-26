@@ -18,10 +18,10 @@ jobs:
             matrix:
                 include:
                     - os: ubuntu-latest
-                      artifact_name: MinewParser
+                      artifact_name: Template
                       asset_name: Template_Linux_amd64_$tag
                     - os: windows-latest
-                      artifact_name: MinewParser.exe
+                      artifact_name: Template.exe
                       asset_name: Template_amd64_$tag.exe
 
         steps:
