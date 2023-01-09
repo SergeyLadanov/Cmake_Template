@@ -54,6 +54,13 @@ macro(__Get_IncludeDirectories result curdir)
     set(${result} ${dirlist})
 endmacro()
 
+
+# Получение списка файлов с исходным кодом
+macro(__Get_SourceFiles result curdir)
+    file(GLOB_RECURSE temp ${curdir}/*.c ${curdir}/*.cpp)
+    set(${result} ${temp})
+endmacro()
+
 # Установка папки с компонентами проекта
 set(COMPONENTS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Components)
 
@@ -67,8 +74,12 @@ function(Depends_On name)
     message("Add dependency \"${name}\" for \"${PROJECT_NAME}\"")
     set(dirs "")
     __Get_IncludeDirectories(dirs ${COMPONENTS_DIRECTORY}/${name})
+    __Get_SourceFiles(src_files ${COMPONENTS_DIRECTORY}/${name})
     target_include_directories(${PROJECT_NAME} PRIVATE ${dirs})
-    target_link_libraries(${PROJECT_NAME} ${name})
+
+    if (src_files)
+        target_link_libraries(${PROJECT_NAME} ${name})
+    endif()
 endfunction()
 
 # Указать, что данный компонент зависит от всех остальных
@@ -84,8 +95,14 @@ endfunction()
 function(__Register_Component name)
     add_subdirectory(Components/${name})
     get_property(inc_dirs DIRECTORY ${COMPONENTS_DIRECTORY}/${name} PROPERTY INCLUDE_DIRECTORIES)
-    target_include_directories(${PROJECT_NAME} PRIVATE ${inc_dirs}) 
-    target_link_libraries(${PROJECT_NAME} ${name})
+    __Get_SourceFiles(src_files ${COMPONENTS_DIRECTORY}/${name})
+
+    target_include_directories(${PROJECT_NAME} PRIVATE ${inc_dirs})
+
+    if (src_files)
+        target_link_libraries(${PROJECT_NAME} ${name})
+    endif()
+    
 endfunction()
 
 # Добавить компоненты в проект
