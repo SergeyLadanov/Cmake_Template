@@ -29,9 +29,30 @@ macro(__Get_DirectorytList result curdir)
     set(dirlist "")
     foreach(child ${children})
         if(IS_DIRECTORY ${curdir}/${child})
-            list(APPEND dirlist ${child})
+            
+            file(READ Components/${child}/CMakeLists.txt text)
+            string(REGEX MATCHALL "[D,d][e,E][p,P][e,E][n,N][d,D][s,S]_[o,O][n,N]\\([^ ]*\\)" out_var ${text})
+            string(REGEX REPLACE "\"|\\(|\\)|[D,d][e,E][p,P][e,E][n,N][d,D][s,S]_[o,O][n,N]" "" out_var "${out_var}")
+            string(REPLACE "\n" ";" out_var "${out_var}")
+            foreach(item ${out_var})
+                list(INSERT dirlist 0 ${item})
+                message("Inserted dependency \"${item}\"")
+            endforeach()
+
+            list(FIND dirlist ${child} res)
+
+            if (res GREATER_EQUAL 0)
+                message("Component already included")
+            else()
+                message("Add new component \"${child}\"")
+                list(APPEND dirlist ${child})
+            endif()
+            
         endif()
     endforeach()
+    message("Removing dublicates")
+    list(REMOVE_DUPLICATES  dirlist)
+    message("List final \"${dirlist}\"")
     set(${result} ${dirlist})
 endmacro()
 
@@ -39,18 +60,7 @@ endmacro()
 macro(__Get_IncludeDirectories result curdir)
     file(GLOB_RECURSE children ${curdir}/*.h ${curdir}/*.hpp)
     message("Adding include directories for \"${PROJECT_NAME}\"...")
-    set(dirlist "")
-    set(curItem "")
-    foreach(child ${children})
-        # Get current path
-        set(path ${child})
-        cmake_path(GET path PARENT_PATH newResult)
-        if (NOT curItem STREQUAL newResult)
-            message("Add \"${newResult}\" to icnlude directory list")
-            list(APPEND dirlist ${newResult})
-            set(curItem ${newResult})
-        endif()
-    endforeach()
+    get_property(dirlist DIRECTORY ${curdir} PROPERTY INCLUDE_DIRECTORIES)
     set(${result} ${dirlist})
 endmacro()
 
@@ -145,18 +155,6 @@ add_compile_options(
     -Os>>
 )
 
-# Пример подключения библиотек
-# Для Windows
-if (WIN32)
-    # Подключение библиотек
-    target_link_libraries(${PROJECT_NAME} ws2_32)
-    target_link_libraries(${PROJECT_NAME} wsock32)
-    target_link_libraries(${PROJECT_NAME} pthread)
-endif ()
 
-# Для Linux
-if (UNIX)
-    target_link_libraries(${PROJECT_NAME} pthread)
-endif ()
 
                     
