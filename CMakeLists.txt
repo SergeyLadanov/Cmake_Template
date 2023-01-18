@@ -31,8 +31,13 @@ macro(__Get_DirectorytList result curdir)
         if(IS_DIRECTORY ${curdir}/${child})
             
             file(READ Components/${child}/CMakeLists.txt text)
-            string(REGEX MATCHALL "[D,d][e,E][p,P][e,E][n,N][d,D][s,S]_[o,O][n,N]\\([^\n]*\\)" out_var ${text})
-            string(REGEX REPLACE "\"|\\(|\\)|[D,d][e,E][p,P][e,E][n,N][d,D][s,S]_[o,O][n,N]" "" out_var "${out_var}")
+            # Find dependency function call
+            string(REGEX MATCHALL "[D,d][e,E][p,P][e,E][n,N][d,D][s,S]_[o,O][n,N]\\([^\\(]*\\)" out_var ${text})
+            # Remove all spaces near the breakets
+            string(REGEX REPLACE "\\([\r\n\t ]*|[\r\n\t ]*\\)" "" out_var "${out_var}")
+            # Remove quote marks and function name
+            string(REGEX REPLACE "\"|[D,d][e,E][p,P][e,E][n,N][d,D][s,S]_[o,O][n,N]" "" out_var "${out_var}")
+            # Convert to list
             string(REPLACE "\n" ";" out_var "${out_var}")
             foreach(item ${out_var})
                 list(INSERT dirlist 0 ${item})
