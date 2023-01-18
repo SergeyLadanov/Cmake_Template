@@ -31,7 +31,7 @@ macro(__Get_DirectorytList result curdir)
         if(IS_DIRECTORY ${curdir}/${child})
             
             file(READ Components/${child}/CMakeLists.txt text)
-            string(REGEX MATCHALL "[D,d][e,E][p,P][e,E][n,N][d,D][s,S]_[o,O][n,N]\\([^ ]*\\)" out_var ${text})
+            string(REGEX MATCHALL "[D,d][e,E][p,P][e,E][n,N][d,D][s,S]_[o,O][n,N]\\([^.]*\\)" out_var ${text})
             string(REGEX REPLACE "\"|\\(|\\)|[D,d][e,E][p,P][e,E][n,N][d,D][s,S]_[o,O][n,N]" "" out_var "${out_var}")
             string(REPLACE "\n" ";" out_var "${out_var}")
             foreach(item ${out_var})
