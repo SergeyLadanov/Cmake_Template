@@ -1,5 +1,8 @@
 cmake_minimum_required(VERSION 3.21)
 
+# Установка папки с компонентами проекта
+set(COMPONENTS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Components)
+
 # Название проекта
 project(Template)
 
@@ -23,14 +26,14 @@ set(
     Core/Inc
 )
 
-# Получение списка папок в заданном каталоге
-macro(__Get_DirectorytList result curdir)
+# Получение списка компонентов в заданном каталоге
+macro(__Get_ComponentList result curdir)
     file(GLOB children RELATIVE ${curdir} ${curdir}/*)
     set(dirlist "")
     foreach(child ${children})
         if(IS_DIRECTORY ${curdir}/${child})
-            
-            file(READ Components/${child}/CMakeLists.txt text)
+            # Сортировка списка в соответствии с зависимостями
+            file(READ ${curdir}/${child}/CMakeLists.txt text)
             # Find dependency function call
             string(REGEX MATCHALL "[D,d][e,E][p,P][e,E][n,N][d,D][s,S]_[o,O][n,N]\\([^\\(]*\\)" out_var ${text})
             # Remove all spaces near the breakets
@@ -45,26 +48,24 @@ macro(__Get_DirectorytList result curdir)
             endforeach()
 
             list(FIND dirlist ${child} res)
-
+            message("Adding component \"${child}\"...")
             if (res GREATER_EQUAL 0)
-                message("Component already included")
+                message("Component \"${child}\" already included by dependencies")
             else()
-                message("Add new component \"${child}\"")
                 list(APPEND dirlist ${child})
             endif()
             
         endif()
     endforeach()
-    message("Removing dublicates")
+    message("Removing dublicates in component list...")
     list(REMOVE_DUPLICATES  dirlist)
-    message("List final \"${dirlist}\"")
     set(${result} ${dirlist})
 endmacro()
 
 # Получение списка каталогов с заголовочными файлами в заданной директории
 macro(__Get_IncludeDirectories result curdir)
     file(GLOB_RECURSE children ${curdir}/*.h ${curdir}/*.hpp)
-    message("Adding include directories for \"${PROJECT_NAME}\"...")
+    message("Adding include directories from dependency \"${curdir}\" to \"${PROJECT_NAME}\"...")
     get_property(dirlist DIRECTORY ${curdir} PROPERTY INCLUDE_DIRECTORIES)
     set(${result} ${dirlist})
 endmacro()
@@ -76,17 +77,14 @@ macro(__Get_SourceFiles result curdir)
     set(${result} ${temp})
 endmacro()
 
-# Установка папки с компонентами проекта
-set(COMPONENTS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Components)
-
 # Получение списка компонентов проекта
-__Get_DirectorytList(COMPONENT_LIST ${COMPONENTS_DIRECTORY})
+__Get_ComponentList(COMPONENT_LIST ${COMPONENTS_DIRECTORY})
 
 message("Project components: \"${COMPONENT_LIST}\"")
 
 # Указать имя зависимости для компонента
 function(Depends_On name)
-    message("Add dependency \"${name}\" for \"${PROJECT_NAME}\"")
+    message("Handle dependency \"${name}\" for \"${PROJECT_NAME}\"")
     set(dirs "")
     __Get_IncludeDirectories(dirs ${COMPONENTS_DIRECTORY}/${name})
     __Get_SourceFiles(src_files ${COMPONENTS_DIRECTORY}/${name})
