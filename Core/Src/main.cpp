@@ -2,6 +2,12 @@
 #include "main.hpp"
 #include "IncludeOnlyComponent.hpp"
 
+
+void ExtTest(void)
+{
+    
+}
+
 // Основная программа
 int main(void)
 {

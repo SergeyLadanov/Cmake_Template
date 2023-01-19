@@ -1,4 +1,5 @@
 #include "file1.h"
+#include "test.hpp"
 
 void Hello_From_C(void)
 {

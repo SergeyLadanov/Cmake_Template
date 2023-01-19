@@ -20,3 +20,6 @@ include_directories(
 # Creating static library
 add_library(${COMPONENT_NAME} STATIC ${SOURCE_LIB})
 
+
+Depends_On_Main()
+
