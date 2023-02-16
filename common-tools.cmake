@@ -51,9 +51,15 @@ endmacro()
 
 
 # Получение списка файлов с исходным кодом
-macro(__Get_SourceFiles result curdir)
-    file(GLOB_RECURSE temp ${curdir}/*.c ${curdir}/*.cpp)
-    set(${result} ${temp})
+macro(__SourceFilesPresent result curdir)
+    file(READ ${curdir}/CMakeLists.txt text)
+    string(REGEX MATCHALL "[a,A][d,D][d,D]_[l,L][i,I][b,B][r,R][a,A][r,R][y,Y]" out_var ${text})
+    if (out_var)
+        set(${result} "True")
+    else()
+        set(${result} "")
+    endif()
+    
 endmacro()
 
 # Получение списка компонентов проекта
@@ -72,7 +78,7 @@ function(Depends_On name)
     if (NOT ${COMPONENT_NAME} STREQUAL ${name})
         message("Test")
         __Get_IncludeDirectories(dirs ${COMPONENTS_DIRECTORY}/${name})
-        __Get_SourceFiles(src_files ${COMPONENTS_DIRECTORY}/${name})
+        __SourceFilesPresent(src_files ${COMPONENTS_DIRECTORY}/${name})
         target_include_directories(${PROJECT_NAME} PRIVATE ${dirs})
 
         if (src_files)
@@ -102,7 +108,7 @@ endfunction()
 function(__Register_Component name)
     add_subdirectory(Components/${name})
     get_property(inc_dirs DIRECTORY ${COMPONENTS_DIRECTORY}/${name} PROPERTY INCLUDE_DIRECTORIES)
-    __Get_SourceFiles(src_files ${COMPONENTS_DIRECTORY}/${name})
+    __SourceFilesPresent(src_files ${COMPONENTS_DIRECTORY}/${name})
 
     target_include_directories(${PROJECT_NAME} PRIVATE ${inc_dirs})
 
