@@ -128,7 +128,6 @@ function(__Depends_On name)
     get_filename_component(COMPONENT_NAME ${CMAKE_CURRENT_SOURCE_DIR} NAME)
 
     if (NOT ${COMPONENT_NAME} STREQUAL ${name})
-        message("Test")
         __Get_IncludeDirectories(dirs ${COMPONENTS_DIRECTORY}/${name})
         __SourceFilesPresent(src_files ${COMPONENTS_DIRECTORY}/${name})
         target_include_directories(${PROJECT_NAME} PRIVATE ${dirs})
@@ -150,7 +149,6 @@ macro( Depends_On )
     cmake_parse_arguments(_ARGUMENTS "${_OPTIONS_ARGS}" "${_ONE_VALUE_ARGS}"  ${ARGN} )
 
     foreach(item ${ARGN})
-        message( STATUS "Foreach: ${item}")
         __HandleDependencyTree(${item})
     endforeach()
 
