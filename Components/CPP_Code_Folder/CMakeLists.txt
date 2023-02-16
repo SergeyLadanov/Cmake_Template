@@ -19,5 +19,7 @@ include_directories(
 add_library(${COMPONENT_NAME} STATIC ${SOURCE_LIB})
 
 # Set dependence
-Depends_On("C_Code_Folder")
-Depends_On("IncludeOnlyComponent")
+Depends_On(
+    "C_Code_Folder" 
+    "IncludeOnlyComponent"
+    )
