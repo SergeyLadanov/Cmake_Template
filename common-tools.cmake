@@ -18,11 +18,11 @@ macro(__Get_DirectorytList result curdir)
     foreach(child ${children})
         if(IS_DIRECTORY ${curdir}/${child})
             # list(FIND dirlist ${child} res)
-            message("Adding component \"${child}\"...")
+            message(STATUS "Adding component \"${child}\"")
             list(APPEND dirlist ${child})
         endif()
     endforeach()
-    message("Removing dublicates in component list...")
+    message(STATUS "Removing dublicates in components list")
     list(REMOVE_DUPLICATES  dirlist)
     set(${result} ${dirlist})
 endmacro()
@@ -30,7 +30,7 @@ endmacro()
 # Получение списка каталогов с заголовочными файлами в заданной директории
 macro(__Get_IncludeDirectories result curdir)
     set(dirlist "")
-    message("Adding include directories from dependency \"${curdir}\" to \"${PROJECT_NAME}\"...")
+    message(STATUS "Adding include directories from dependency \"${curdir}\" to \"${PROJECT_NAME}\"")
     file(READ ${curdir}/CMakeLists.txt text)
     # Find include directories call
     string(REGEX MATCHALL "[I,i][n,N][c,C][l,L][u,U][d,D][e,E]_[d,D][i,I][r,R][e,E][c,C][t,T][o,O][r,R][i,I][e,E][s,S]\\([^\\(]*\\)" out_var ${text})
@@ -58,7 +58,7 @@ endmacro()
 # Получение списка каталогов с заголовочными файлами в заданной директории
 macro(__Get_Dependencies result curdir)
     set(dirlist "")
-    message("Adding dependency from \"${curdir}\" to \"${PROJECT_NAME}\"...")
+    message(STATUS "Adding dependency from \"${curdir}\" to \"${PROJECT_NAME}\"")
     file(READ ${curdir}/CMakeLists.txt text)
     # Find include directories call
     string(REGEX MATCHALL "[D,d][e,E][p,P][e,N][n,N][d,D][s,S]_[o,O][n,N]\\([^\\(]*\\)" out_var ${text})
@@ -95,7 +95,7 @@ endmacro()
 # Получение списка компонентов проекта
 __Get_DirectorytList(COMPONENT_LIST ${COMPONENTS_DIRECTORY})
 
-message("Project components: \"${COMPONENT_LIST}\"")
+message(STATUS "Final components list: \"${COMPONENT_LIST}\"")
 
 
 #-----------------------------------------------
@@ -121,7 +121,7 @@ endmacro()
 
 # Указать имя зависимость для компонента
 function(__Depends_On name)
-    message("Handle dependency \"${name}\" for \"${PROJECT_NAME}\"")
+    message(STATUS "Handle dependency \"${name}\" for \"${PROJECT_NAME}\"")
     set(dirs "")
 
     # Put directory name to COMPONENT_NAME variable
@@ -163,7 +163,7 @@ endmacro()
 
 # Указать зависимость от главного приложения
 function(Depends_On_Main)
-    message("Handle dependency \"Main app\" for \"${PROJECT_NAME}\"")
+    message(STATUS "Handle dependency \"Main app\" for \"${PROJECT_NAME}\"")
     target_include_directories(${PROJECT_NAME} PUBLIC ${MainIncludes})
     Depends_All()
 endfunction()
