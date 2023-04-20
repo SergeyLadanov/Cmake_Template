@@ -15,6 +15,11 @@ set(Project_Path ${CMAKE_CURRENT_SOURCE_DIR})
 # Получение списка каталогов для заголовочных файлов исходного проекта
 get_target_property(MainIncludes ${TARGET_NAME} INCLUDE_DIRECTORIES)
 
+# Если MainIncludes остутствует, то создается пустая переменная
+if(NOT MainIncludes)
+    set(MainIncludes "")
+endif()
+
 # Вспомогательная переменная для сканирования вложенных зависимотсей компонентов
 set(__dependency_tree "")
 
