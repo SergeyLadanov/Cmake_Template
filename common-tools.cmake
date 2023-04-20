@@ -1,3 +1,10 @@
+# Get name of final executable 
+if(NOT DEFINED TARGET_NAME)
+    message(STATUS "Target name not definet. Using default name from variable PROJECT_NAME = \"${PROJECT_NAME}\"")
+    set(TARGET_NAME ${PROJECT_NAME})
+else()
+    message(STATUS "Target name was definet \"${TARGET_NAME}\"")
+endif()
 
 # Установка папки с компонентами проекта
 set(COMPONENTS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Components)
@@ -6,7 +13,7 @@ set(COMPONENTS_DIRECTORY ${CMAKE_CURRENT_SOURCE_DIR}/Components)
 set(Project_Path ${CMAKE_CURRENT_SOURCE_DIR})
 
 # Получение списка каталогов для заголовочных файлов исходного проекта
-get_target_property(MainIncludes ${PROJECT_NAME} INCLUDE_DIRECTORIES)
+get_target_property(MainIncludes ${TARGET_NAME} INCLUDE_DIRECTORIES)
 
 # Вспомогательная переменная для сканирования вложенных зависимотсей компонентов
 set(__dependency_tree "")
@@ -183,10 +190,10 @@ function(__Register_Component name)
     get_property(inc_dirs DIRECTORY ${COMPONENTS_DIRECTORY}/${name} PROPERTY INCLUDE_DIRECTORIES)
     __SourceFilesPresent(src_files ${COMPONENTS_DIRECTORY}/${name})
 
-    target_include_directories(${PROJECT_NAME} PRIVATE ${inc_dirs})
+    target_include_directories(${TARGET_NAME} PRIVATE ${inc_dirs})
 
     if (src_files)
-        target_link_libraries(${PROJECT_NAME} ${name})
+        target_link_libraries(${TARGET_NAME} ${name})
     endif()
     
 endfunction()
