@@ -193,7 +193,7 @@ function(__Register_Component name)
     target_include_directories(${TARGET_NAME} PRIVATE ${inc_dirs})
 
     if (src_files)
-        target_link_libraries(${TARGET_NAME} ${name})
+        target_link_libraries(${TARGET_NAME} PRIVATE ${name})
     endif()
     
 endfunction()
