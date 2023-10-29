@@ -54,5 +54,15 @@ add_compile_options(
 )
 
 
+if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
+  message("Build for Linux")
+endif ()
+
+
+if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
+  message("Build for Windows")
+endif ()
+
+
 
                     

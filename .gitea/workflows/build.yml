@@ -56,7 +56,7 @@ jobs:
 
       
       - name: Generate build files
-        run: cmake . -G"${{ env.Cmake_Generator }}" -B"${{ env.Build_Dir }}" -DCMAKE_BUILD_TYPE=${{ env.Build_Config }} -DCMAKE_CXX_COMPILER=${{ matrix.compiller_prefix }}g++ -DCMAKE_C_COMPILER=${{ matrix.compiller_prefix }}gcc 
+        run: cmake . -G"${{ env.Cmake_Generator }}" -B"${{ env.Build_Dir }}" -DCMAKE_BUILD_TYPE=${{ env.Build_Config }} -DCMAKE_CXX_COMPILER=${{ matrix.compiller_prefix }}g++ -DCMAKE_C_COMPILER=${{ matrix.compiller_prefix }}gcc -DCMAKE_SYSTEM_NAME=${{matrix.target_os}} 
 
       - name: Build
         run: cmake --build ./${{ env.Build_Dir }}
