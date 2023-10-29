@@ -22,10 +22,10 @@ jobs:
               include:
                 - os: ubuntu-latest
                   generator: "Unix Makefiles"
-                  output_filename: ${{env.PROJECT_NAME}}
+                  output_file_ext: ""
                 - os: windows-latest
                   generator: "MinGW Makefiles"
-                  output_filename: ${{env.PROJECT_NAME}}.exe
+                  output_file_ext: ".exe"
 
         steps:
             - uses: actions/checkout@v3
@@ -41,5 +41,5 @@ jobs:
               with:
                 name: Build_Output
                 path: |
-                  build/${{matrix.output_filename}}
+                  build/${{env.PROJECT_NAME}}${{matrix.output_file_ext}}
             
