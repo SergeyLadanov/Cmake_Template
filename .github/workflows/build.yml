@@ -19,31 +19,22 @@ jobs:
         strategy:
             matrix:
               os: [ubuntu-latest, windows-latest]
+              include:
+                - os: ubuntu-latest
+                  generator: "Unix Makefiles"
+                - os: windows-latest
+                  generator: "MinGW Makefiles"
 
         steps:
-            - uses: actions/checkout@v2
+            - uses: actions/checkout@v3
 
-            - name: Build for Linux
-              if: matrix.os == 'ubuntu-latest'
-              run: cmake . -G "Unix Makefiles" -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
-
-            - name: Build for Windows
-              if: matrix.os == 'windows-latest'
-              run: cmake . -G "MinGW Makefiles" -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
+            - name: Generate build files
+              run: cmake . -G "${{matrix.generator}}" -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}}
               
             - name: build
               run: cmake --build ./build
-              
-            - name: Archive production artifacts Windows
-              if: matrix.os == 'windows-latest'
-              uses: actions/upload-artifact@v3
-              with:
-                name: Build_Output
-                path: |
-                  build/${{env.PROJECT_NAME}}.exe
-            
-            - name: Archive production artifacts Linux
-              if: matrix.os == 'ubuntu-latest'
+                  
+            - name: Archive production artifacts
               uses: actions/upload-artifact@v3
               with:
                 name: Build_Output
