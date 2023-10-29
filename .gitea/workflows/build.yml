@@ -1,0 +1,72 @@
+name: Build C/C++
+
+on:
+  push:
+    branches: '*'
+  pull_request:
+    branches: '*'
+  workflow_call:
+
+jobs:
+  build:
+    strategy:
+      matrix:
+        configuration: [Linux_x86_64, Windows_x86_64]
+        include:
+          - configuration: Linux_x86_64
+            target_os: Linux
+            package_name: g++-x86-64-linux-gnu
+            compiller_prefix: x86_64-linux-gnu-
+            out_file_ext: ""
+          - configuration: Windows_x86_64
+            target_os: Windows
+            package_name: mingw-w64
+            compiller_prefix: x86_64-w64-mingw32-
+            out_file_ext: ".exe"
+
+    runs-on: ubuntu-latest
+
+    env:
+      Build_Dir: build
+      Build_Config: DEBUG
+      Project_Name: Template
+      Cmake_Generator: "Unix Makefiles"
+
+    steps:
+      # Checkout repository
+      - name: Checkout code
+        uses: actions/checkout@v3
+
+      - name: Print build config
+        run: echo ${{ env.Build_Config }}
+
+      - name: Print build dir
+        run: echo ${{ env.Build_Dir }}
+
+      
+      - name: Print configuration
+        run: echo ${{ matrix.configuration }}
+
+      - name: Print target os
+        run: echo ${{ matrix.target_os }}
+        
+    
+      - name: install components
+        run: apt-get update && apt-get install make cmake ${{ matrix.package_name }} -y
+
+      
+      - name: Generate build files
+        run: cmake . -G"${{ env.Cmake_Generator }}" -B"${{ env.Build_Dir }}" -DCMAKE_BUILD_TYPE=${{ env.Build_Config }} -DCMAKE_CXX_COMPILER=${{ matrix.compiller_prefix }}g++ -DCMAKE_C_COMPILER=${{ matrix.compiller_prefix }}gcc 
+
+      - name: Build
+        run: cmake --build ./${{ env.Build_Dir }}
+      
+      - name: Tar files
+        run: tar -cvf Build_Output.tar --directory=${{ env.Build_Dir }} ${{ env.Project_Name }}${{ matrix.out_file_ext }}
+        
+      - name: Upload artifatcs
+        uses: actions/upload-artifact@v3
+        with:
+          name: Build_Output_${{ matrix.configuration }}.tar
+          path: |
+              Build_Output.tar    
