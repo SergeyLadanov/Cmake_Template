@@ -60,13 +60,15 @@ jobs:
 
       - name: Build
         run: cmake --build ./${{ env.Build_Dir }}
-      
-      - name: Tar files
-        run: tar -cvf Build_Output.tar --directory=${{ env.Build_Dir }} ${{ env.Project_Name }}${{ matrix.out_file_ext }}
+
+      - name: Rename output file
+        run: mv ${{ env.Build_Dir }}/${{ env.Project_Name }}${{ matrix.out_file_ext }} ${{ env.Build_Dir }}/${{ env.Project_Name }}_${{ matrix.configuration }}${{ matrix.out_file_ext }}
+#      - name: Tar files
+#        run: tar -cvf Build_Output.tar --directory=${{ env.Build_Dir }} ${{ env.Project_Name }}${{ matrix.out_file_ext }}
         
       - name: Upload artifatcs
         uses: actions/upload-artifact@v3
         with:
-          name: Build_Output_${{ matrix.configuration }}.tar
+          name: Build_Output
           path: |
-              Build_Output.tar    
+              ${{ env.Build_Dir }}/${{ env.Project_Name }}_${{ matrix.configuration }}${{ matrix.out_file_ext }} 
