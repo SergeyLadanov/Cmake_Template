@@ -8,7 +8,8 @@
             "args": [
                 "cmake",
                 "--build",
-                "./build",
+                "--preset",
+                "Debug",
                 "-j4"
             ],
             "problemMatcher": [
@@ -27,26 +28,16 @@
             "windows":{
                 "args": [
                     "cmake",
-                    ".",
-                    "-G",
-                    "MinGW Makefiles",
-                    "-B",
-                    "build",
-                    "-D",
-                    "CMAKE_BUILD_TYPE=DEBUG"
+                    "--preset",
+                    "Debug"
                 ],
             },
 
             "linux":{
                 "args": [
                     "cmake",
-                    ".",
-                    "-G",
-                    "Unix Makefiles",
-                    "-B",
-                    "build",
-                    "-D",
-                    "CMAKE_BUILD_TYPE=DEBUG"
+                    "--preset",
+                    "Debug"
                 ],
             },
 
@@ -62,26 +53,16 @@
             "windows":{
                 "args": [
                     "cmake",
-                    ".",
-                    "-G",
-                    "MinGW Makefiles",
-                    "-B",
-                    "build",
-                    "-D",
-                    "CMAKE_BUILD_TYPE=RELEASE"
+                    "--preset",
+                    "Release",
                 ],
             },
 
             "linux":{
                 "args": [
                     "cmake",
-                    ".",
-                    "-G",
-                    "Unix Makefiles",
-                    "-B",
-                    "build",
-                    "-D",
-                    "CMAKE_BUILD_TYPE=RELEASE"
+                    "--preset",
+                    "Release",
                 ],
             },
 
@@ -97,7 +78,8 @@
             "args": [
                 "cmake",
                 "--build",
-                "./build",
+                "--preset",
+                "Debug",
                 "--target",
                 "clean"
 
