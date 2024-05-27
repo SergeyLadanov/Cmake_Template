@@ -5,8 +5,8 @@
             "name": "default",
             "hidden": true,
             "description": "Using compilers: C = gcc, CXX = g++",
-            "generator": "MinGW Makefiles",
-            "binaryDir": "${sourceDir}/build",
+            "generator": "Unix Makefiles",
+            "binaryDir": "${sourceDir}/build/${presetName}",
             "cacheVariables": {
                 "CMAKE_C_COMPILER": "gcc",
                 "CMAKE_CXX_COMPILER": "g++",

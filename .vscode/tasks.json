@@ -25,22 +25,11 @@
             "type": "shell",
             "label": "Конфигурация Debug",
             "command": "",
-            "windows":{
-                "args": [
-                    "cmake",
-                    "--preset",
-                    "Debug"
-                ],
-            },
-
-            "linux":{
-                "args": [
-                    "cmake",
-                    "--preset",
-                    "Debug"
-                ],
-            },
-
+            "args": [
+                "cmake",
+                "--preset",
+                "Debug"
+            ],
             "problemMatcher": [
                 "$gcc"
             ],
@@ -50,21 +39,11 @@
             "type": "shell",
             "label": "Конфигурация Release",
             "command": "",
-            "windows":{
-                "args": [
-                    "cmake",
-                    "--preset",
-                    "Release",
-                ],
-            },
-
-            "linux":{
-                "args": [
-                    "cmake",
-                    "--preset",
-                    "Release",
-                ],
-            },
+            "args": [
+                "cmake",
+                "--preset",
+                "Release",
+            ],
 
             "problemMatcher": [
                 "$gcc"
