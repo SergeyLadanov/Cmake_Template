@@ -1,26 +1,21 @@
 {
     "version": "2.0.0",
     "tasks": [
-        {
-            "type": "shell",
-            "label": "C/C++: Сборка проекта",
-            "command": "",
-            "args": [
-                "cmake",
-                "--build",
-                "--preset",
-                "Debug",
-                "-j4"
-            ],
-            "problemMatcher": [
-                "$gcc"
-            ],
-            "group": {
-                "kind": "build",
-                "isDefault": true
-            },
-            "detail": "Компилятор: \"g++.exe\""
-        },
+		{
+			"type": "cmake",
+			"label": "Build active preset",
+			"command": "build",
+			"targets": [
+                "all"
+			],
+			"preset": "${command:cmake.activeBuildPresetName}",
+			"group": {
+				"kind": "build",
+                "isDefault": false
+			},
+			"problemMatcher": [],
+			"detail": "CMake template build task",
+		},
         {
             "type": "shell",
             "label": "Конфигурация Debug",
@@ -50,9 +45,30 @@
             ],
             "detail": "Компилятор: \"g++.exe\""
         },
+        
+        {
+            "type": "shell",
+            "label": "C/C++: Сборка Debug",
+            "command": "",
+            "args": [
+                "cmake",
+                "--build",
+                "--preset",
+                "Debug",
+                "-j4"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
+            "detail": "Компилятор: \"g++.exe\""
+        },
 		{
 			"type": "cmake",
-			"label": "Clean",
+			"label": "Clean active preset",
 			"command": "build",
 			"targets": [
 				"clean"
@@ -64,49 +80,24 @@
 			"problemMatcher": [],
 			"detail": "CMake template build task",
 		},
+        {
+            "type": "shell",
+            "label": "C/C++: Clean Debug",
+            "command": "",
+            "args": [
+                "cmake",
+                "--build",
+                "--preset",
+                "Debug",
+                "--target",
+                "clean"
+
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "group": "build",
+            "detail": "Очистка выходных файлов"
+        }
     ]
 }
-
-
-
-// {
-//     "type": "shell",
-//     "label": "C/C++: Clean",
-//     "command": "",
-//     "args": [
-//         "cmake",
-//         "--build",
-//         "--preset",
-//         "Debug",
-//         "--target",
-//         "clean"
-
-//     ],
-//     "problemMatcher": [
-//         "$gcc"
-//     ],
-//     "group": "build",
-//     "detail": "Очистка выходных файлов"
-// }
-
-
-// {
-//     "type": "shell",
-//     "label": "C/C++: Сборка проекта",
-//     "command": "",
-//     "args": [
-//         "cmake",
-//         "--build",
-//         "--preset",
-//         "Debug",
-//         "-j4"
-//     ],
-//     "problemMatcher": [
-//         "$gcc"
-//     ],
-//     "group": {
-//         "kind": "build",
-//         "isDefault": true
-//     },
-//     "detail": "Компилятор: \"g++.exe\""
-// },
