@@ -23,7 +23,7 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "C/C++: Сборка проекта"
+            "preLaunchTask": "Build active preset"
         }
     ]
 }
