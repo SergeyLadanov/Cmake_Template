@@ -58,3 +58,25 @@ Depends_On(
 ```
 
 В случае если компонент не имеет зависимостей от других компонентов, появляется возможность компилировать компонент отдельно от проекта.
+
+# Генерация файлов сборки и сборка
+## Без пресетов
+```
+cmake . -G "MinGW Makefiles" -B"build" -DCMAKE_BUILD_TYPE=Debug -DCMAKE_SYSTEM_NAME=Windows
+cmake --build ./build -j4
+```
+Очитска:
+```
+cmake --build ./build --target clean
+```
+
+
+## С пресетами
+```
+cmake --preset Debug
+cmake --build --preset Debug -j4
+```
+Очитска:
+```
+cmake --build --preset Debug --target clean
+```
