@@ -1,14 +1,60 @@
 {
     "version": "2.0.0",
     "tasks": [
+		{
+			"type": "cmake",
+			"label": "Build active preset",
+			"command": "build",
+			"targets": [
+                "all"
+			],
+			"preset": "${command:cmake.activeBuildPresetName}",
+			"group": {
+				"kind": "build",
+                "isDefault": false
+			},
+			"problemMatcher": [],
+			"detail": "CMake template build task",
+		},
         {
             "type": "shell",
-            "label": "C/C++: Сборка проекта",
+            "label": "Конфигурация Debug",
+            "command": "",
+            "args": [
+                "cmake",
+                "--preset",
+                "Debug"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "detail": "Компилятор: \"g++.exe\""
+        },
+        {
+            "type": "shell",
+            "label": "Конфигурация Release",
+            "command": "",
+            "args": [
+                "cmake",
+                "--preset",
+                "Release",
+            ],
+
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "detail": "Компилятор: \"g++.exe\""
+        },
+        
+        {
+            "type": "shell",
+            "label": "C/C++: Сборка Debug",
             "command": "",
             "args": [
                 "cmake",
                 "--build",
-                "./build",
+                "--preset",
+                "Debug",
                 "-j4"
             ],
             "problemMatcher": [
@@ -20,84 +66,29 @@
             },
             "detail": "Компилятор: \"g++.exe\""
         },
+		{
+			"type": "cmake",
+			"label": "Clean active preset",
+			"command": "build",
+			"targets": [
+				"clean"
+			],
+			"preset": "${command:cmake.activeBuildPresetName}",
+			"group": {
+				"kind": "build",
+			},
+			"problemMatcher": [],
+			"detail": "CMake template build task",
+		},
         {
             "type": "shell",
-            "label": "Конфигурация Debug",
-            "command": "",
-            "windows":{
-                "args": [
-                    "cmake",
-                    ".",
-                    "-G",
-                    "MinGW Makefiles",
-                    "-B",
-                    "build",
-                    "-D",
-                    "CMAKE_BUILD_TYPE=DEBUG"
-                ],
-            },
-
-            "linux":{
-                "args": [
-                    "cmake",
-                    ".",
-                    "-G",
-                    "Unix Makefiles",
-                    "-B",
-                    "build",
-                    "-D",
-                    "CMAKE_BUILD_TYPE=DEBUG"
-                ],
-            },
-
-            "problemMatcher": [
-                "$gcc"
-            ],
-            "detail": "Компилятор: \"g++.exe\""
-        },
-        {
-            "type": "shell",
-            "label": "Конфигурация Release",
-            "command": "",
-            "windows":{
-                "args": [
-                    "cmake",
-                    ".",
-                    "-G",
-                    "MinGW Makefiles",
-                    "-B",
-                    "build",
-                    "-D",
-                    "CMAKE_BUILD_TYPE=RELEASE"
-                ],
-            },
-
-            "linux":{
-                "args": [
-                    "cmake",
-                    ".",
-                    "-G",
-                    "Unix Makefiles",
-                    "-B",
-                    "build",
-                    "-D",
-                    "CMAKE_BUILD_TYPE=RELEASE"
-                ],
-            },
-
-            "problemMatcher": [
-                "$gcc"
-            ],
-            "detail": "Компилятор: \"g++.exe\""
-        },
-        {
-            "type": "shell",
-            "label": "C/C++: Clean",
+            "label": "C/C++: Clean Debug",
             "command": "",
             "args": [
                 "cmake",
                 "--build",
-                "./build",
+                "--preset",
+                "Debug",
                 "--target",
                 "clean"
 
