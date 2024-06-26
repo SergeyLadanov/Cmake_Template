@@ -28,9 +28,7 @@
                 "--preset",
                 "${command:cmake.activeBuildPresetName}"
             ],
-            "problemMatcher": [
-                "$gcc"
-            ],
+            "problemMatcher": [],
             "detail": "Компилятор: \"g++.exe\""
         },
         
@@ -46,9 +44,7 @@
                 "clean"
 
             ],
-            "problemMatcher": [
-                "$gcc"
-            ],
+            "problemMatcher": [],
             "group": "build",
             "detail": "Очистка выходных файлов"
         }
