@@ -1,60 +1,14 @@
 {
     "version": "2.0.0",
     "tasks": [
-		{
-			"type": "cmake",
-			"label": "Build active preset",
-			"command": "build",
-			"targets": [
-                "all"
-			],
-			"preset": "${command:cmake.activeBuildPresetName}",
-			"group": {
-				"kind": "build",
-                "isDefault": false
-			},
-			"problemMatcher": [],
-			"detail": "CMake template build task",
-		},
         {
             "type": "shell",
-            "label": "Конфигурация Debug",
-            "command": "",
+            "label": "C/C++: Build",
+            "command": "cmake",
             "args": [
-                "cmake",
-                "--preset",
-                "Debug"
-            ],
-            "problemMatcher": [
-                "$gcc"
-            ],
-            "detail": "Компилятор: \"g++.exe\""
-        },
-        {
-            "type": "shell",
-            "label": "Конфигурация Release",
-            "command": "",
-            "args": [
-                "cmake",
-                "--preset",
-                "Release",
-            ],
-
-            "problemMatcher": [
-                "$gcc"
-            ],
-            "detail": "Компилятор: \"g++.exe\""
-        },
-        
-        {
-            "type": "shell",
-            "label": "C/C++: Сборка Debug",
-            "command": "",
-            "args": [
-                "cmake",
                 "--build",
                 "--preset",
-                "Debug",
+                "${command:cmake.activeBuildPresetName}",
                 "-j4"
             ],
             "problemMatcher": [
@@ -66,29 +20,28 @@
             },
             "detail": "Компилятор: \"g++.exe\""
         },
-		{
-			"type": "cmake",
-			"label": "Clean active preset",
-			"command": "build",
-			"targets": [
-				"clean"
-			],
-			"preset": "${command:cmake.activeBuildPresetName}",
-			"group": {
-				"kind": "build",
-			},
-			"problemMatcher": [],
-			"detail": "CMake template build task",
-		},
         {
             "type": "shell",
-            "label": "C/C++: Clean Debug",
-            "command": "",
+            "label": "Cmake: Generate build files",
+            "command": "cmake",
             "args": [
-                "cmake",
+                "--preset",
+                "${command:cmake.activeBuildPresetName}"
+            ],
+            "problemMatcher": [
+                "$gcc"
+            ],
+            "detail": "Компилятор: \"g++.exe\""
+        },
+        
+        {
+            "type": "shell",
+            "label": "C/C++: Clean",
+            "command": "cmake",
+            "args": [
                 "--build",
                 "--preset",
-                "Debug",
+                "${command:cmake.activeBuildPresetName}",
                 "--target",
                 "clean"
 
