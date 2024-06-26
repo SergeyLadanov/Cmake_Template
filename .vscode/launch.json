@@ -23,7 +23,7 @@
                     "ignoreFailures": true
                 }
             ],
-            "preLaunchTask": "Build active preset"
+            "preLaunchTask": "C/C++: Build"
         }
     ]
 }
