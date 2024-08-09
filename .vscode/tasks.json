@@ -3,7 +3,18 @@
     "tasks": [
         {
             "type": "shell",
-            "label": "C/C++: Build",
+            "label": "Cmake: Generate build files",
+            "command": "cmake",
+            "args": [
+                "--preset",
+                "${command:cmake.activeBuildPresetName}"
+            ],
+            "problemMatcher": [],
+            "detail": "Компилятор: \"g++.exe\""
+        },
+        {
+            "type": "shell",
+            "label": "Cmake: Build",
             "command": "cmake",
             "args": [
                 "--build",
@@ -16,20 +27,21 @@
             ],
             "group": {
                 "kind": "build",
-                "isDefault": true
+                "isDefault": false
             },
             "detail": "Компилятор: \"g++.exe\""
         },
         {
-            "type": "shell",
-            "label": "Cmake: Generate build files",
-            "command": "cmake",
-            "args": [
-                "--preset",
-                "${command:cmake.activeBuildPresetName}"
+            "label": "C/C++: Build",
+            "dependsOrder": "sequence",
+            "dependsOn": [
+                "Cmake: Generate build files",
+                "Cmake: Build",
             ],
-            "problemMatcher": [],
-            "detail": "Компилятор: \"g++.exe\""
+            "group": {
+                "kind": "build",
+                "isDefault": true
+            },
         },
         
         {
