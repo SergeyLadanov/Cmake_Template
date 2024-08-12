@@ -34,8 +34,12 @@ target_include_directories(${PROJECT_NAME} PRIVATE
     ${Includes}
 )
 
+
 # Подключение инструментов для работы с модулями
 include(common-tools.cmake)
+
+
+add_dependencies(${PROJECT_NAME} CPP_Code_Folder C_Code_Folder)
 
 # Флаги компиляции
 add_compile_options(

@@ -11,14 +11,16 @@ set(SOURCE_LIB
     Src/file1.c
 )
 
-# Add includes
-include_directories(
-    Inc
-)
-
 # Creating static library
 add_library(${COMPONENT_NAME} STATIC ${SOURCE_LIB})
 
+
+# Add includes
+target_include_directories(
+    ${COMPONENT_NAME}
+    PUBLIC 
+    Inc
+)
 
 Depends_On_Main()
 
