@@ -42,13 +42,16 @@ set(SOURCE_LIB
     Src/file1.cpp
 )
 
-# Add includes
-include_directories(
-    Inc
-)
-
 # Creating static library
 add_library(${COMPONENT_NAME} STATIC ${SOURCE_LIB})
+
+
+# Add includes
+target_include_directories(
+    ${COMPONENT_NAME}
+    PUBLIC 
+    Inc
+)
 
 # Set dependence (optionaly)
 Depends_On(
@@ -56,8 +59,49 @@ Depends_On(
     Dependency_2
     )
 ```
+Если у компонента используются только заголовочные файлы, то структура примет следующий вид
+
+```cmake
+cmake_minimum_required(VERSION 3.10)
+
+# Put directory name to COMPONENT_NAME variable
+get_filename_component(COMPONENT_NAME ${CMAKE_CURRENT_SOURCE_DIR} NAME)
+# Set component name
+project(${COMPONENT_NAME})
+
+
+# Creating static library
+add_library(${COMPONENT_NAME} INTERFACE)
+
+
+# Add includes
+target_include_directories(
+    ${COMPONENT_NAME}
+    INTERFACE 
+    Inc
+)
+```
 
 В случае если компонент не имеет зависимостей от других компонентов, появляется возможность компилировать компонент отдельно от проекта.
+
+Пример подгрузки компонента из репозитория:
+
+```cmake
+include(FetchContent)
+FetchContent_Declare(
+    Example1
+    GIT_REPOSITORY https://github.com/url1.git
+    GIT_TAG        1.0.35
+    )
+
+FetchContent_Declare(
+    Example2
+    GIT_REPOSITORY https://github.com/url2.git
+    GIT_TAG        1.1.35
+    )
+
+FetchContent_MakeAvailable(Example1 Example2)
+```
 
 # Генерация файлов сборки и сборка
 ## Без пресетов
