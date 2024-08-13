@@ -101,6 +101,10 @@ FetchContent_Declare(
     )
 
 FetchContent_MakeAvailable(Example1 Example2)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE Example1)
+
+target_link_libraries(${PROJECT_NAME} PRIVATE Example2)
 ```
 
 # Генерация файлов сборки и сборка
