@@ -34,8 +34,25 @@ target_include_directories(${PROJECT_NAME} PRIVATE
     ${Includes}
 )
 
+
+# Example of using FetchContent
+
+# include(FetchContent)
+
+# FetchContent_Declare(
+#     NVS_Lib
+#     URL https://github.com/SergeyLadanov/NVS_Lib_CPP/releases/download/1.0.1/NVS_Lib_1.0.1.zip
+#     SOURCE_DIR  _deps/NVS_Lib
+#     )
+
+# FetchContent_MakeAvailable(NVS_Lib)
+
+# target_link_libraries(${PROJECT_NAME} PRIVATE NVS_Lib)
+
 # Подключение инструментов для работы с модулями
 include(common-tools.cmake)
+
+
 
 # Флаги компиляции
 add_compile_options(

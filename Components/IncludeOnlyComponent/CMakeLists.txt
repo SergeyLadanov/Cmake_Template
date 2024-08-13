@@ -6,7 +6,13 @@ get_filename_component(COMPONENT_NAME ${CMAKE_CURRENT_SOURCE_DIR} NAME)
 project(${COMPONENT_NAME})
 
 
+# Creating static library
+add_library(${COMPONENT_NAME} INTERFACE)
+
+
 # Add includes
-include_directories(
+target_include_directories(
+    ${COMPONENT_NAME}
+    INTERFACE 
     Inc
 )
