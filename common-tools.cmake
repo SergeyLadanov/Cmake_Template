@@ -52,7 +52,7 @@ macro( Depends_On )
 
     foreach(item ${ARGN})
         #__HandleDependencyTree(${item})
-        message(STATUS "Depends from ${item} for ${PROJECT_NAME}")
+        message(STATUS "Handle dependency ${item} for ${PROJECT_NAME}")
         target_link_libraries(${PROJECT_NAME} PUBLIC ${item})
         # add_dependencies(${PROJECT_NAME} ${item})
     endforeach()
