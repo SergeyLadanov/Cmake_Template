@@ -9,6 +9,20 @@ set(EXECUTABLE ${PROJECT_NAME})
 # Язык C и C++
 enable_language(CXX C)
 
+# Флаги компиляции
+# set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections")
+
+# if(CMAKE_BUILD_TYPE MATCHES Debug)
+#     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -O0 -g3")
+# endif()
+# if(CMAKE_BUILD_TYPE MATCHES Release)
+#     set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Os -g0")
+# endif()
+
+# set(CMAKE_CXX_FLAGS "${CMAKE_CXX_FLAGS} ${CMAKE_C_FLAGS} -fno-rtti -fno-exceptions -fno-threadsafe-statics")
+
+
+
 # Файлы с исходым кодом
 FILE(
     GLOB 
@@ -55,20 +69,20 @@ include(common-tools.cmake)
 
 
 # Флаги компиляции
-add_compile_options(
-    $<$<COMPILE_LANGUAGE:CXX>:
-    -fno-rtti 
-    -fno-exceptions 
-    $<$<CONFIG:Debug>:
-    -Og>
-    $<$<CONFIG:Release>:
-    -Os>> 
-    $<$<COMPILE_LANGUAGE:C>:
-    $<$<CONFIG:Debug>:
-    -Og>
-    $<$<CONFIG:Release>:
-    -Os>>
-)
+# add_compile_options(
+#     $<$<COMPILE_LANGUAGE:CXX>:
+#     -fno-rtti 
+#     -fno-exceptions 
+#     $<$<CONFIG:Debug>:
+#     -Og>
+#     $<$<CONFIG:Release>:
+#     -Os>> 
+#     $<$<COMPILE_LANGUAGE:C>:
+#     $<$<CONFIG:Debug>:
+#     -Og>
+#     $<$<CONFIG:Release>:
+#     -Os>>
+# )
 
 
 if (CMAKE_SYSTEM_NAME STREQUAL "Linux")
