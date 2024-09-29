@@ -21,19 +21,19 @@ BinPackArguments: true
 BreakBeforeBraces: Custom
 BraceWrapping:
   AfterCaseLabel: false
-  AfterClass: false
-  AfterStruct: false
+  AfterClass: true
+  AfterStruct: true
   AfterControlStatement: true
-  AfterEnum: false
+  AfterEnum: true
   AfterFunction: true
-  AfterNamespace: false
-  AfterUnion: false
-  AfterExternBlock: false
+  AfterNamespace: true
+  AfterUnion: true
+  AfterExternBlock: true
   BeforeCatch: false
   BeforeElse: true
-  BeforeLambdaBody: false
+  BeforeLambdaBody: true
   IndentBraces: false
-  SplitEmptyFunction: false
+  SplitEmptyFunction: true
   SplitEmptyRecord: false
   SplitEmptyNamespace: false
 BreakBeforeBinaryOperators: None
