@@ -28,11 +28,26 @@ FormatList = [
     'Components'
     ]
 
+# Исключения из форматирования
+ExcludeList = [
+    # 'Core/Src/main.cpp'
+    # 'Components',
+    # 'Core'
+]
+
 
 ArgList = [
     '-j8', # Количество процессов для обработки
     '-v', # Вывод списка обработанных файлов
     ]
+
+
+def is_excluded(filepath):
+    # Проверка, что файл или его директория находятся в исключениях
+    for exclude in ExcludeList:
+        if os.path.commonpath([filepath, exclude]).replace('\\', '/') == exclude:
+            return True
+    return False
 
 
 def glob_files(args):
@@ -44,7 +59,11 @@ def glob_files(args):
         for root, _, filenames in os.walk(directory):
             for ext in extensions:
                 for filename in fnmatch.filter(filenames, '*.' + ext):
-                    files.append(os.path.join(root, filename))
+                    full_path = os.path.join(root, filename)
+                    if (is_excluded(full_path)):
+                        continue
+                    else:
+                        files.append(full_path)
 
     return files
 
@@ -157,14 +176,17 @@ def format_all(args, files):
 
 
 def main():
-    for item in FormatList:
-        ArgList.append(item)
+    if (len(FormatList) > 0):
+        for item in FormatList:
+            ArgList.append(item)
 
-    args = parse_args(ArgList)
+        args = parse_args(ArgList)
 
-    files = glob_files(args)
+        files = glob_files(args)
 
-    format_all(args, files)
+        format_all(args, files)
+    else:
+        print("Please set directories for formatting")
 
 
 if __name__ == '__main__':
