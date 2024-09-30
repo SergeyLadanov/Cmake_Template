@@ -3,6 +3,16 @@
     "tasks": [
         {
             "type": "shell",
+            "label": "Запустить автоформатирование",
+            "command": "python",
+            "args": [
+                "run-clang-format.py",
+            ],
+            "problemMatcher": [],
+            "detail": "Запустить автоформатирование"
+        },
+        {
+            "type": "shell",
             "label": "Cmake: Generate build files",
             "command": "cmake",
             "args": [
