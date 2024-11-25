@@ -70,5 +70,8 @@
             "group": "build",
             "detail": "Очистка выходных файлов"
         }
-    ]
+    ],
+    "presentation": {
+        "clear": true
+    }
 }
