@@ -9,6 +9,9 @@ set(EXECUTABLE ${PROJECT_NAME})
 # Язык C и C++
 enable_language(CXX C)
 
+
+set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
+
 # Флаги компиляции
 # set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections")
 

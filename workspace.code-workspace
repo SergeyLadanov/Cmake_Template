@@ -10,6 +10,16 @@
 			"*.h": "c",
 			"*.cpp": "cpp",
 			"*.hpp": "cpp"
-		  }
-	}
+		  },
+		  "cmake.copyCompileCommands": "${workspaceFolder}/build/compile_commands.json",
+		  "C_Cpp.files.exclude": {
+				"build/**": true,
+			},
+		   "files.watcherExclude": {
+				"build/**": true,
+			},
+			"search.exclude": {
+				"build/**": true,
+			},
+		}
 }
