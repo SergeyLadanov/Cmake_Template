@@ -76,7 +76,7 @@
             "command": "cppcheck",
             "args": [
                 "--project=build/compile_commands.json",
-                "--enable=all",
+                "--enable=warning,performance,portability,style",
                 "--inconclusive",
                 "--quiet",
                 "--suppress=missingInclude*"

@@ -40,6 +40,11 @@ set(
     Core/Inc
 )
 
+set_source_files_properties(
+    ${Sources}
+    PROPERTIES COMPILE_FLAGS "-Wextra -Wconversion -Wsign-conversion"
+)
+
 # Добавление файлов исходного кода
 add_executable(
     ${EXECUTABLE}
