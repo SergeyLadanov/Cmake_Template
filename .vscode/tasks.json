@@ -69,6 +69,22 @@
             "problemMatcher": [],
             "group": "build",
             "detail": "Очистка выходных файлов"
+        },
+        {
+            "type": "shell",
+            "label": "C/C++: Run cppcheck",
+            "command": "cppcheck",
+            "args": [
+                "--project=build/compile_commands.json",
+                "--enable=all",
+                "--inconclusive",
+                "--quiet",
+                "--suppress=missingInclude*"
+
+            ],
+            "problemMatcher": [],
+            "group": "test",
+            "detail": "C/C++: Run cppcheck"
         }
     ],
     "presentation": {
