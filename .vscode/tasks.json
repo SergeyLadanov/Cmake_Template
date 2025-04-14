@@ -77,12 +77,14 @@
             "args": [
                 "--project=build/compile_commands.json",
                 "--enable=warning,performance,portability,style",
+                "--check-level=exhaustive",
                 "--inconclusive",
                 "--quiet",
+                "--template=gcc",
                 "--suppress=missingInclude*"
 
             ],
-            "problemMatcher": [],
+            "problemMatcher": ["$gcc"],
             "group": "test",
             "detail": "C/C++: Run cppcheck"
         }
