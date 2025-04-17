@@ -40,9 +40,20 @@ set(
     Core/Inc
 )
 
+set(WARNING_FLAGS "-Wextra -Wpedantic -Wconversion -Wsign-conversion")
+
+option(ENABLE_STATIC_ANALYSIS "Enable GCC static analysis with -fanalyzer" OFF)
+
+
+if(ENABLE_STATIC_ANALYSIS)
+    set(WARNING_FLAGS "${WARNING_FLAGS} -fanalyzer")
+endif()
+
+
+
 set_source_files_properties(
     ${Sources}
-    PROPERTIES COMPILE_FLAGS "-Wextra -Wconversion -Wsign-conversion"
+    PROPERTIES COMPILE_FLAGS ${WARNING_FLAGS}
 )
 
 # Добавление файлов исходного кода

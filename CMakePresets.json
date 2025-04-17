@@ -21,6 +21,14 @@
             }
         },
         {
+            "name": "DebugWithStaticAnalysis",
+            "inherits": "default",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug",
+                "ENABLE_STATIC_ANALYSIS": "ON"
+            }
+        },
+        {
             "name": "RelWithDebInfo",
             "inherits": "default",
             "cacheVariables": {
@@ -46,6 +54,10 @@
         {
             "name": "Debug",
             "configurePreset": "Debug"
+        },
+        {
+            "name": "DebugWithStaticAnalysis",
+            "configurePreset": "DebugWithStaticAnalysis"
         },
         {
             "name": "RelWithDebInfo",
