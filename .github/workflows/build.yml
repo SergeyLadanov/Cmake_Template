@@ -30,7 +30,7 @@ jobs:
                   target_os: Windows
 
         steps:
-            - uses: actions/checkout@v3
+            - uses: actions/checkout@v4
 
             - name: Generate build files
               run: cmake . -G "${{matrix.generator}}" -B ${{github.workspace}}/build -DCMAKE_BUILD_TYPE=${{env.BUILD_TYPE}} -DCMAKE_SYSTEM_NAME=${{matrix.target_os}}

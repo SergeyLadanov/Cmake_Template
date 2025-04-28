@@ -86,20 +86,6 @@ target_include_directories(${PROJECT_NAME} PRIVATE
 include(common-tools.cmake)
 
 
-enable_testing()
-
-add_executable(tests)
-
-target_sources(tests PRIVATE
-    "Tests/Test.cpp"
-    "Core/Src/add.cpp"
-)
-
-target_include_directories(tests PRIVATE
-    ${Includes}
-)
-
-
 
 # Флаги компиляции
 # add_compile_options(
@@ -127,5 +113,20 @@ if (CMAKE_SYSTEM_NAME STREQUAL "Windows")
   message("Build for Windows")
 endif ()
 
+
+#-----------------TESTS CREATING-----------------#
+
+enable_testing()
+
+add_executable(tests)
+
+target_sources(tests PRIVATE
+    "Tests/Test.cpp"
+    "Core/Src/add.cpp"
+)
+
+target_include_directories(tests PRIVATE
+    ${Includes}
+)
 
 add_test(NAME MyModuleTest COMMAND tests)                
