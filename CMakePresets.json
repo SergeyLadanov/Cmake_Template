@@ -48,28 +48,51 @@
             "cacheVariables": {
                 "CMAKE_BUILD_TYPE": "MinSizeRel"
             }
+        },
+        {
+            "name": "Tests",
+            "inherits": "default",
+            "cacheVariables": {
+                "CMAKE_BUILD_TYPE": "Debug"
+            }
         }
     ],
     "buildPresets": [
         {
             "name": "Debug",
-            "configurePreset": "Debug"
+            "configurePreset": "Debug",
+            "targets": ["Template"]
         },
         {
             "name": "DebugWithStaticAnalysis",
-            "configurePreset": "DebugWithStaticAnalysis"
+            "configurePreset": "DebugWithStaticAnalysis",
+            "targets": ["Template"]
         },
         {
             "name": "RelWithDebInfo",
-            "configurePreset": "RelWithDebInfo"
+            "configurePreset": "RelWithDebInfo",
+            "targets": ["Template"]
         },
         {
             "name": "Release",
-            "configurePreset": "Release"
+            "configurePreset": "Release",
+            "targets": ["Template"]
         },
         {
             "name": "MinSizeRel",
-            "configurePreset": "MinSizeRel"
+            "configurePreset": "MinSizeRel",
+            "targets": ["Template"]
+        },
+        {
+            "name": "Tests",
+            "configurePreset": "Tests",
+            "targets": ["tests"]
+        }
+    ],
+    "testPresets": [
+        {
+            "name": "Tests",
+            "configurePreset": "Tests"
         }
     ]
 }
