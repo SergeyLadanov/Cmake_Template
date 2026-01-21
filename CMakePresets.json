@@ -5,7 +5,7 @@
             "name": "default",
             "hidden": true,
             "description": "Using compilers: C = gcc, CXX = g++",
-            "generator": "Unix Makefiles",
+            "generator": "Ninja",
             "binaryDir": "${sourceDir}/build/${presetName}",
             "cacheVariables": {
                 "CMAKE_C_COMPILER": "gcc",

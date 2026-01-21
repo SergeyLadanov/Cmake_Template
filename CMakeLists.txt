@@ -1,4 +1,4 @@
-cmake_minimum_required(VERSION 3.10)
+cmake_minimum_required(VERSION 3.31)
 
 # Название проекта
 project(Template)
@@ -11,6 +11,16 @@ enable_language(CXX C)
 
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
+add_library(my_module)
+
+target_sources(my_module
+	PUBLIC
+		FILE_SET CXX_MODULES FILES
+			Core/Src/math.cppm
+)
+
+
+target_compile_features(my_module PUBLIC cxx_std_23)
 
 # Флаги компиляции
 # set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections")
@@ -67,6 +77,8 @@ target_include_directories(${PROJECT_NAME} PRIVATE
     ${Includes}
 )
 
+
+target_link_libraries(Template PUBLIC my_module)
 
 # Example of using FetchContent
 
