@@ -21,11 +21,11 @@ jobs:
               os: [ubuntu-latest, windows-latest]
               include:
                 - os: ubuntu-latest
-                  generator: "Unix Makefiles"
+                  generator: "Ninja"
                   output_file_ext: ""
                   target_os: Linux
                 - os: windows-latest
-                  generator: "MinGW Makefiles"
+                  generator: "Ninja"
                   output_file_ext: ".exe"
                   target_os: Windows
 
