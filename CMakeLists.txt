@@ -11,16 +11,7 @@ enable_language(CXX C)
 
 
 set(CMAKE_EXPORT_COMPILE_COMMANDS TRUE)
-add_library(my_module)
 
-target_sources(my_module
-	PUBLIC
-		FILE_SET CXX_MODULES FILES
-			Core/Src/math.cppm
-)
-
-
-target_compile_features(my_module PUBLIC cxx_std_23)
 
 # Флаги компиляции
 # set(CMAKE_C_FLAGS "${CMAKE_C_FLAGS} -Wall -Wextra -Wpedantic -fdata-sections -ffunction-sections")
@@ -72,13 +63,24 @@ add_executable(
     ${Sources}
 )
 
+
+
+target_sources(${EXECUTABLE}
+	PUBLIC
+		FILE_SET CXX_MODULES FILES
+			Core/Src/math.cppm
+)
+
+
+target_compile_features(${EXECUTABLE} PUBLIC cxx_std_23)
+
 # Директории с *.h файлами
 target_include_directories(${PROJECT_NAME} PRIVATE
     ${Includes}
 )
 
 
-target_link_libraries(Template PUBLIC my_module)
+# target_link_libraries(Template PUBLIC my_module)
 
 # Example of using FetchContent
 
