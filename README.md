@@ -2,7 +2,7 @@
 Шаблон проекта C/C++ для Cmake
 
 # Установка компонентов
-1. CMake: https://cmake.org/;
+1. [CMake](https://cmake.org/) версии 3.14 или новее. Для сборки с пресетами нужен CMake 3.21 или новее.
 2. make
 ```
 winget install ezwinports.make
@@ -84,28 +84,11 @@ target_include_directories(
 
 В случае если компонент не имеет зависимостей от других компонентов, появляется возможность компилировать компонент отдельно от проекта.
 
-Пример подгрузки компонента из репозитория:
+## Внешние библиотеки
 
-```cmake
-include(FetchContent)
-FetchContent_Declare(
-    Example1
-    GIT_REPOSITORY https://github.com/url1.git
-    GIT_TAG        1.0.35
-    )
+В [dependencies.cmake](dependencies.cmake) перечислены зависимости приложения (fmt 7.1.3 и nlohmann/json 3.10.5) и тестов (Catch2 3.4.0). Скрипт CPM.cmake 0.43.2 входит в репозиторий. При первой конфигурации CMake скачивает архивы с GitHub и распаковывает их в `_deps` внутри каталога сборки.
 
-FetchContent_Declare(
-    Example2
-    GIT_REPOSITORY https://github.com/url2.git
-    GIT_TAG        1.1.35
-    )
-
-FetchContent_MakeAvailable(Example1 Example2)
-
-target_link_libraries(${PROJECT_NAME} PRIVATE Example1)
-
-target_link_libraries(${PROJECT_NAME} PRIVATE Example2)
-```
+Для fmt используется ZIP-файл, опубликованный автором в релизе (`releases/download/<тег>/<файл>`). Для nlohmann/json и Catch2 используются архивы исходников по тегу (`archive/refs/tags/<тег>.tar.gz`). При добавлении библиотеки укажите ссылку на архив с `CMakeLists.txt` и добавьте его цель в `target_link_libraries(...)`.
 
 # Генерация файлов сборки и сборка
 ## Без пресетов

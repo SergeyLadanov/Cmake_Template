@@ -7,7 +7,6 @@
         "ms-vscode.cmake-tools",
         "ms-vscode.cpptools",
         "ms-vscode.cpptools-extension-pack",
-        "ms-vscode.cpptools-themes",
-        "twxs.cmake"
+        "ms-vscode.cpptools-themes"
     ]
 }
